@@ -1,1 +1,1 @@
-# Bugbounty-Tools
+# Bugbounty Tools
