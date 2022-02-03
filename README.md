@@ -1,1 +1,1 @@
-# Bugbounty-Tools-Installation
+# Bugbounty-Tools
