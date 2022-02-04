@@ -25,7 +25,7 @@ sudo apt-get install amass
 
 #Install Arjun
 echo ▶ Install arjun
-pip3 install arjun
+sudo pip3 install arjun
 
 #Install Evil Winrm
 echo ▶ Install evil winrm
@@ -59,7 +59,7 @@ go install github.com/tomnomnom/waybackurls@latest
 
 #Install Gf
 echo ▶ Install gf
-go install github.com/tomnomnom/gf
+go install github.com/tomnomnom/gf@latest
 git clone https://github.com/1ndianl33t/Gf-Patterns
 mkdir ~/.gf
 cd Gf-Patterns
