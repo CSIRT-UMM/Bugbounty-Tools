@@ -1,11 +1,11 @@
 # Bugbounty Tools
 
-### Installation
+## Installation
 ```bash
 $ chmod +x ./tools.sh
 $ ./tools.sh
 ```
-### List Tools
+## List Tools
 1. Commix
 2. Amass
 3. Arjun
