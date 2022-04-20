@@ -20,3 +20,4 @@ $ ./tools.sh
 12. Httpx
 13. Nuclei
 14. Qsreplace
+15. Naabu
