@@ -19,3 +19,4 @@ $ ./tools.sh
 11. Subfinder
 12. Httpx
 13. Nuclei
+14. Qsreplace
