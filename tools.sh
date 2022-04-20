@@ -86,6 +86,11 @@ go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
 echo ▶ Install nuclei
 go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 
+#Install Qsreplace
+echo ▶ Install nuclei
+go install github.com/tomnomnom/qsreplace@latest
+
+
 cd ~/go/bin
 sudo mv * /bin
 
