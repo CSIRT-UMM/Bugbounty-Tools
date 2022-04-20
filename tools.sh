@@ -5,6 +5,7 @@ sudo apt install python3-pip -y
 sudo apt-get install python -y
 sudo apt-get install python3 -y
 sudo apt install golang-go -y
+sudo apt install -y libpcap-dev
 
 echo ▶ Creat dir Bugbounty
 mkdir ~/Bugbounty && cd ~/Bugbounty
@@ -87,8 +88,12 @@ echo ▶ Install nuclei
 go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 
 #Install Qsreplace
-echo ▶ Install nuclei
-go install github.com/tomnomnom/qsreplace@latest
+echo ▶ Install Qsreplace
+go install -v github.com/tomnomnom/qsreplace@latest
+
+#Install Naabu
+echo ▶ Install naabu
+go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
 
 
 cd ~/go/bin
