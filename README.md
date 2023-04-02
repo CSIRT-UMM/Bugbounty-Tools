@@ -42,4 +42,6 @@ $ ./tools.sh
 - Arjun - https://github.com/s0md3v/Arjun
 - Amass - https://github.com/owasp-amass/amass
 ## Screenshot
-<img src="https://user-images.githubusercontent.com/66077593/229372030-e16e0989-04c4-4727-a5dd-35ed06437d0c.png" width=200 style="display: block; margin-left: auto; margin-right: auto;">
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/66077593/229372030-e16e0989-04c4-4727-a5dd-35ed06437d0c.png" width=250>
+</p>
