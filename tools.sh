@@ -1,103 +1,363 @@
 #!/bin/bash
 
-sudo apt update -y && sudo apt upgrade -y
-sudo apt install python3-pip -y
-sudo apt-get install python -y
-sudo apt-get install python3 -y
-sudo apt install golang-go -y
-sudo apt install -y libpcap-dev
+CHECK='\xe2\x9c\x85'
+UNCHECK='\xe2\x9d\x8c'
+SUCCESS=0
+ERROR=0
 
-echo ▶ Creat dir Bugbounty
-mkdir ~/Bugbounty && cd ~/Bugbounty
+# Reqruitments
 
-#Install Commix
-echo ▶ Install commix
-git clone https://github.com/commixproject/commix.git
-cd commix
-echo "#!/bin/bash" >> commix
-echo python3 ~/Bugbounty/commix/commix.py "$@" >> commix
-chmod +x commix
-sudo mv commix /bin/
-cd ../
+echo "===[ INSTALL RECRUITMENT ]==="
 
-#Install Amass
-echo ▶ Install amass
-sudo apt-get install amass
+pkgInstallation(){
+    if ! dpkg -s $PKG &> /dev/null
+    then
+        sudo apt install -y $PKG &> /dev/null
+        if [ $? -eq 0 ]
+        then
+            echo -e "▶ $PKG [$CHECK]"
+            ((SUCCESS++))
+        else
+            echo -e "▶ $PKG [$UNCHECK]"
+            ((ERROR++))
+        fi
+    else    
+        echo -e "▶ $PKG [$CHECK]"
+        ((SUCCESS++))
+    fi
+}
 
-#Install Arjun
-echo ▶ Install arjun
-sudo pip3 install arjun
+PKG=golang-go
+if ! dpkg -s $PKG &> /dev/null
+then
+    sudo apt install golang-go -y &> /dev/null
+    if [ $? -eq 0 ]
+    then
+        echo GOROOT=/usr/lib/go >> ~/.bashrc
+        echo GOPATH=$HOME/go >> ~/.bashrc
+        echo PATH=$PATH:$GOROOT/bin:$GOPATH/bin >> ~/.bashrc
+        . ~/.bashrc
+        echo -e "▶ $PKG [$CHECK]"
+        ((SUCCESS++))
+    else
+        echo -e "▶ $PKG [$UNCHECK]"
+        ((ERROR++))
+    fi
+else
+    echo -e "▶ $PKG [$CHECK]"
+    ((SUCCESS++))
+fi
 
-#Install Evil Winrm
-echo ▶ Install evil winrm
-sudo gem install evil-winrm
+PKG=libpcap-dev
+pkgInstallation
 
-#Install Rustscan
-echo ▶ Install rustscan
-mkdir rustscan && cd rustscan
-wget https://github.com/RustScan/RustScan/releases/download/2.0.1/rustscan_2.0.1_amd64.deb
-sudo dpkg -i rustscan_2.0.1_amd64.deb
-cd ../
+PKG=rubygems
+pkgInstallation
 
-#Install ParamSpider
-echo ▶ Install param spider
-git clone https://github.com/devanshbatham/ParamSpider
-cd ParamSpider
-pip3 install -r requirements.txt
-echo "#!/bin/bash" >> paramspider
-echo python3 ~/Bugbounty/ParamSpider/paramspider.py "$@" >> paramspider
-chmod +x paramspider
-sudo mv paramspider /bin
-cd ../
+# ================================================================== #
+echo
+echo =============================
+echo "SUCCESS = $SUCCESS"
+echo "ERROR = $ERROR"
+echo =============================
+echo
+SUCCESS=0
+ERROR=0
+# ================================================================== #
 
-#Install Kxss
-echo ▶ Install kxss
-go install github.com/Emoe/kxss@latest
-
-#Install Waybackurls
-echo ▶ Install waybackurls
-go install github.com/tomnomnom/waybackurls@latest
-
-#Install Gf
-echo ▶ Install gf
-go install github.com/tomnomnom/gf@latest
-git clone https://github.com/1ndianl33t/Gf-Patterns
-mkdir ~/.gf
-cd Gf-Patterns
-mv *.json ~/.gf
-cd ../
-
-#Install Gauplus
-echo ▶ Install gauplus
-go install github.com/bp0lr/gauplus@latest
-
-#Install Dalfox
-echo ▶ Install dalfox
-go install github.com/hahwul/dalfox/v2@latest
-
-#Install Subfinder
-echo ▶ Install subfinder
-go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
-
-#Install Httpx
-echo ▶ Install httpx
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
-
-#Install Muclei
-echo ▶ Install nuclei
-go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
-
-#Install Qsreplace
-echo ▶ Install Qsreplace
-go install -v github.com/tomnomnom/qsreplace@latest
-
-#Install Naabu
-echo ▶ Install naabu
-go install -v github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
+# Install Tools
+echo "===[ INSTALL TOOLS ]==="
 
 
-cd ~/go/bin
-sudo mv * /bin
+goToolsInstallation(){
+    if ! command -v $TOOLS &> /dev/null
+    then
+        go install -v $REPO &> /dev/null
+        if [ $? -eq 0 ]
+        then
+            echo -e "▶ $TOOLS [$CHECK]"
+            ((SUCCESS++))
+        else
+            echo -e "▶ $TOOLS [$UNCHECK]"
+            ((ERROR++))
+        fi    
+    else
+        echo -e "▶ $TOOLS [$CHECK]"
+        ((SUCCESS++))
+    fi
+}
 
-echo Finish
-exit
+
+## Nuclei - https://github.com/projectdiscovery/nuclei
+
+TOOLS=nuclei
+REPO=github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+goToolsInstallation
+
+## Subfinder - https://github.com/projectdiscovery/subfinder
+
+TOOLS=subfinder
+REPO=github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
+goToolsInstallation
+
+## Naabu - https://github.com/projectdiscovery/naabu
+
+TOOLS=naabu
+REPO=github.com/projectdiscovery/naabu/v2/cmd/naabu@latest
+goToolsInstallation
+
+## Katana - https://github.com/projectdiscovery/katana
+
+TOOLS=katana
+REPO=github.com/projectdiscovery/katana/cmd/katana@latest
+goToolsInstallation
+
+## Httpx - https://github.com/projectdiscovery/httpx
+
+TOOLS=httpx
+REPO=github.com/projectdiscovery/httpx/cmd/httpx@latest
+goToolsInstallation
+
+## Uncover - https://github.com/projectdiscovery/uncover
+
+TOOLS=uncover
+REPO=github.com/projectdiscovery/uncover/cmd/uncover@latest
+goToolsInstallation
+
+## ShuffleDNS - https://github.com/projectdiscovery/shuffledns
+
+TOOLS=shuffledns
+REPO=github.com/projectdiscovery/shuffledns/cmd/shuffledns@latest
+goToolsInstallation
+
+## Notify - https://github.com/projectdiscovery/notify
+
+TOOLS=notify
+REPO=github.com/projectdiscovery/notify/cmd/notify@latest
+goToolsInstallation
+
+## Dnsx - https://github.com/projectdiscovery/dnsx
+
+TOOLS=dnsx
+REPO=github.com/projectdiscovery/dnsx/cmd/dnsx@latest
+goToolsInstallation
+
+## DNSProbe - https://github.com/projectdiscovery/dnsprobe
+
+TOOLS=dnsprobe
+REPO=github.com/projectdiscovery/dnsprobe@latest 
+goToolsInstallation
+
+## Subjs - https://github.com/lc/dnsprobe
+
+TOOLS=subjs
+REPO=github.com/lc/subjs@latest
+goToolsInstallation
+
+## Hakrawler - https://github.com/hakluke/hakrawler
+
+TOOLS=hakrawler
+REPO=github.com/hakluke/hakrawler@latest
+goToolsInstallation
+
+## Gotator - https://github.com/Josue87/gotator
+
+TOOLS=gotator
+REPO=github.com/Josue87/gotator@latest
+goToolsInstallation
+
+## Cent - https://github.com/xm1k3/cent
+
+TOOLS=cent
+REPO=github.com/xm1k3/cent@latest
+goToolsInstallation
+
+## Waybackurls - https://github.com/tomnomnom/waybackurls
+
+TOOLS=waybackurls
+REPO=github.com/tomnomnom/waybackurls@latest
+goToolsInstallation
+
+## Gf - https://github.com/tomnomnom/gf
+
+TOOLS=gf
+REPO=github.com/tomnomnom/gf@latest
+goToolsInstallation
+git clone https://github.com/1ndianl33t/Gf-Patterns /tmp/Gf-Patterns &> /dev/null
+mkdir ~/.gf &> /dev/null
+mv /tmp/Gf-Patterns/*.json ~/.gf &> /dev/null
+
+## Httprobe - https://github.com/tomnomnom/httprobe
+
+TOOLS=httprobe
+REPO=github.com/tomnomnom/httprobe@latest
+goToolsInstallation
+
+## Assetfinder - https://github.com/tomnomnom/assetfinder
+
+TOOLS=assetfinder
+REPO=github.com/tomnomnom/assetfinder@latest
+goToolsInstallation
+
+## Meg - https://github.com/tomnomnom/meg
+
+TOOLS=meg
+REPO=github.com/tomnomnom/meg@latest
+goToolsInstallation
+
+## unfurl - https://github.com/tomnomnom/unfurl
+
+TOOLS=unfurl
+REPO=github.com/tomnomnom/unfurl@latest
+goToolsInstallation
+
+## Waybackurls - https://github.com/tomnomnom/waybackurls
+
+TOOLS=waybackurls
+REPO=github.com/tomnomnom/waybackurls@latest
+goToolsInstallation
+
+## Qsreplace - https://github.com/tomnomnom/qsreplace
+
+TOOLS=qsreplace
+REPO=github.com/tomnomnom/qsreplace@latest
+goToolsInstallation
+
+## Anew - https://github.com/tomnomnom/anew
+
+TOOLS=anew
+REPO=github.com/tomnomnom/anew@latest
+goToolsInstallation
+
+## Dalfox - https://github.com/hahwul/dalfox
+
+TOOLS=dalfox
+REPO=github.com/hahwul/dalfox/v2@latest
+goToolsInstallation
+
+## Gospider - https://github.com/jaeles-project/gospider
+
+TOOLS=gospider
+REPO=github.com/jaeles-project/gospider@latest
+goToolsInstallation
+
+## Subjack - https://github.com/haccer/subjack
+
+TOOLS=subjack
+REPO=github.com/haccer/subjack@latest
+goToolsInstallation
+
+## Kxss - https://github.com/Emoe/kxss
+
+TOOLS=kxss
+REPO=github.com/Emoe/kxss@latest
+goToolsInstallation
+
+## Gauplus - https://github.com/bp0lr/gauplus
+
+TOOLS=gauplus
+REPO=github.com/bp0lr/gauplus@latest
+goToolsInstallation
+
+## Cf-Check - https://github.com/dwisiswant0/cf-check
+
+TOOLS=cf-check
+REPO=github.com/dwisiswant0/cf-check@latest
+goToolsInstallation
+
+## Airixss - https://github.com/ferreiraklet/airixss
+
+TOOLS=airixss
+REPO=github.com/ferreiraklet/airixss@latest
+goToolsInstallation
+
+## Jeeves - https://github.com/ferreiraklet/Jeeves
+
+TOOLS=Jeeves
+REPO=github.com/ferreiraklet/Jeeves@latest
+goToolsInstallation
+
+## Rustscan - https://github.com/RustScan/RustScan
+
+if ! command -v rustscan &> /dev/null
+then
+    wget -P /tmp https://github.com/RustScan/RustScan/releases/download/2.0.1/rustscan_2.0.1_amd64.deb &> /dev/null
+    if [ $? -eq 0 ]
+    then
+        sudo dpkg -i /tmp/rustscan_2.0.1_amd64.deb &> /dev/null
+        if [ $? -eq 0 ]
+        then
+            echo -e "▶ rustscan [$CHECK]"
+            ((SUCCESS++))
+        else
+            echo -e "▶ rustscan [$UNCHECK]"
+            ((ERROR++))
+        fi
+    else
+        echo -e "▶ rustscan [$UNCHECK]"
+        ((ERROR++))
+    fi
+else
+    echo -e "▶ rustscan [$CHECK]"
+    ((SUCCESS++))
+fi
+
+## Evil Winrm - https://github.com/Hackplayers/evil-winrm
+
+if ! command -v evil-winrm &> /dev/null
+then
+    sudo gem install evil-winrm &> /dev/null
+    if [ $? -eq 0 ]
+    then
+        echo -e "▶ evil-winrm [$CHECK]"
+        ((SUCCESS++))
+    else
+        echo -e "▶ evil-winrm [$UNCHECK]"
+        ((ERROR++))
+    fi
+else
+    echo -e "▶ evil-winrm [$CHECK]"
+    ((SUCCESS++))
+fi
+
+## Arjun - https://github.com/s0md3v/Arjun
+
+if ! command -v arjun &> /dev/null
+then
+    pip install arjun &> /dev/null
+    if [ $? -eq 0 ] 
+    then
+        echo -e "▶ arjun [$CHECK]"
+        ((SUCCESS++))
+    else
+        echo -e "▶ arjun [$UNCHECK]"
+        ((ERROR++))
+    fi
+else
+    echo -e "▶ arjun [$CHECK]"
+    ((SUCCESS++))
+fi
+
+## Amass - https://github.com/owasp-amass/amass
+
+if ! command -v amass &> /dev/null
+then
+    sudo apt-get install amass &> /dev/null
+    if [ $? -eq 0 ] 
+    then
+        echo -e "▶ amass [$CHECK]"
+        ((SUCCESS++))
+    else
+        echo -e "▶ amass [$UNCHECK]"
+        ((ERROR++))
+    fi
+else
+    echo -e "▶ amass [$CHECK]"
+    ((SUCCESS++))
+fi
+
+
+echo
+echo =============================
+echo "SUCCESS = $SUCCESS"
+echo "ERROR = $ERROR"
