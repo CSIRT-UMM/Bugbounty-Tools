@@ -2,8 +2,8 @@
 
 ## Installation
 ```bash
-$ chmod +x ./tools.sh
-$ ./tools.sh
+$ chmod +x ./install.sh
+$ ./install.sh
 ```
 ## List Tools
 - Nuclei - https://github.com/projectdiscovery/nuclei
