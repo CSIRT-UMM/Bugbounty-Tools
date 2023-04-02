@@ -6,18 +6,38 @@ $ chmod +x ./tools.sh
 $ ./tools.sh
 ```
 ## List Tools
-1. Commix
-2. Amass
-3. Arjun
-4. Evil-Winrm
-5. Rustscan
-6. ParamSpider
-7. Kxss
-8. Gf + Patterns
-9. Gauplus
-10. Dalfox
-11. Subfinder
-12. Httpx
-13. Nuclei
-14. Qsreplace
-15. Naabu
+- Nuclei - https://github.com/projectdiscovery/nuclei
+- Subfinder - https://github.com/projectdiscovery/subfinder
+- Naabu - https://github.com/projectdiscovery/naabu
+- Katana - https://github.com/projectdiscovery/katana
+- Httpx - https://github.com/projectdiscovery/httpx
+- Uncover - https://github.com/projectdiscovery/uncover
+- ShuffleDNS - https://github.com/projectdiscovery/shuffledns
+- Notify - https://github.com/projectdiscovery/notify
+- Dnsx - https://github.com/projectdiscovery/dnsx
+- DNSProbe - https://github.com/projectdiscovery/dnsprobe
+- Subjs - https://github.com/lc/dnsprobe
+- Hakrawler - https://github.com/hakluke/hakrawler
+- Gotator - https://github.com/Josue87/gotator
+- Cent - https://github.com/xm1k3/cent
+- Waybackurls - https://github.com/tomnomnom/waybackurls
+- Gf - https://github.com/tomnomnom/gf
+- Httprobe - https://github.com/tomnomnom/httprobe
+- Assetfinder - https://github.com/tomnomnom/assetfinder
+- Meg - https://github.com/tomnomnom/meg
+- unfurl - https://github.com/tomnomnom/unfurl
+- Waybackurls - https://github.com/tomnomnom/waybackurls
+- Qsreplace - https://github.com/tomnomnom/qsreplace
+- Anew - https://github.com/tomnomnom/anew
+- Dalfox - https://github.com/hahwul/dalfox
+- Gospider - https://github.com/jaeles-project/gospider
+- Subjack - https://github.com/haccer/subjack
+- Kxss - https://github.com/Emoe/kxss
+- Gauplus - https://github.com/bp0lr/gauplus
+- Cf-Check - https://github.com/dwisiswant0/cf-check
+- Airixss - https://github.com/ferreiraklet/airixss
+- Jeeves - https://github.com/ferreiraklet/Jeeves
+- Rustscan - https://github.com/RustScan/RustScan
+- Evil Winrm - https://github.com/Hackplayers/evil-winrm
+- Arjun - https://github.com/s0md3v/Arjun
+- Amass - https://github.com/owasp-amass/amass
