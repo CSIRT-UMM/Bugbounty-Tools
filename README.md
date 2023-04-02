@@ -43,5 +43,5 @@ $ ./tools.sh
 - Amass - https://github.com/owasp-amass/amass
 ## Screenshot
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/66077593/229372030-e16e0989-04c4-4727-a5dd-35ed06437d0c.png" width=250>
+  <img src="https://user-images.githubusercontent.com/66077593/229372030-e16e0989-04c4-4727-a5dd-35ed06437d0c.png" width=450>
 </p>
